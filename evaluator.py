@@ -32,6 +32,7 @@ def gettokens(expr):
    else: tokens.append(char)
   elif isopenbracket(char):
    if len(number) > 0:
+    if len(number) == 1 and issign(number[0]): number.append("1")
     tokens.append("".join(number))
     number = []
     tokens.append("*")
@@ -79,15 +80,17 @@ def getvalue(postfix):
  return stack.pop()
 
 def main(argv):
- argv.pop(0)
- argv = list(map(lambda arg: arg.lower(), argv))
- debug = "-d" in argv
- if debug: argv.remove("-d")
- expr = "".join(argv)
- tokens = gettokens(expr)
- postfix = getpostfix(tokens, debug)
- if debug: print("Tokens:", str(tokens), "\nPostfix:", "  ".join(postfix))
- value = getvalue(postfix)
- print(str(value))
+ try:
+  argv.pop(0)
+  argv = list(map(lambda arg: arg.lower(), argv))
+  debug = "-d" in argv
+  if debug: argv.remove("-d")
+  expr = "".join(argv)
+  tokens = gettokens(expr)
+  postfix = getpostfix(tokens, debug)
+  if debug: print("Tokens:", str(tokens), "\nPostfix:", "  ".join(postfix))
+  value = getvalue(postfix)
+  print(str(value))
+ except: print("Error")
 
 main(sys.argv)
