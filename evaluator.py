@@ -5,7 +5,7 @@ def isoperator(token):
  return token in ["^", "*", "/", "+", "-"]
 
 def isnumber(token):
- return re.fullmatch("[-+]?\d+\.?\d*", token) is not None
+ return re.fullmatch("[-+]?\\d+\\.?\\d*", token) is not None
 
 def issign(token):
  return token in ["+", "-"]
